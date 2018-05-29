@@ -75,3 +75,4 @@ str(meanstd)
 #each variable for each activity and each subject.
 subdf <- aggregate(meanstd[,4:82], by = list(meanstd$actid,meanstd$subjectid), FUN = mean)
 head(subdf)
+write.table(subdf, file = "tidydata.txt", row.names = FALSE)
