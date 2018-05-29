@@ -7,7 +7,7 @@ Based on the instruction to extract only the measurements on the mean and standa
 ## Naming the activities
 To get the type of activities and their description (e.g. standing) I read the y_test.txt, y_train.txt and activity_labels.txt files
 ## Append activity descriptions to activity type and append to data file
-I use dply function left_join() to append activity descriptions to type of activities and merge the two files into a single file to later append using cbind() to the main data file meanstd
+I use dplyr function left_join() to append activity descriptions to type of activities and merge the two files into a single file to later append using cbind() to the main data file meanstd
 ## Append subject ids into main data file
 I read in subject_train.txt subject_test.txt to get the subject ids, merge the training and test subjects and append to the main data file
 ## Create descriptive feature names
