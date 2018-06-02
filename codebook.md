@@ -14,4 +14,5 @@ I read in subject_train.txt subject_test.txt to get the subject ids, merge the t
 I load the selected features into Excel and use find and replace to rename the features using more descriptive names
 E.g. "tBodyAcc-mean()-X" is "renamed	Mean Body Acc X-Axis" and "fBodyAccJerk-meanFreq()-X" is renamed "Fourier Trans Mean Freq Bdy Jerk X-Axis". I then convert the selected features into a character vector and then append to them, three additional features "subject, act type and description". I can now rename all columns using names()
 ## Create a second independent tidy data set with the average of each variable for each activity and each subject.
-To create the average of the averages, I use aggregate) function and group by the activity id and the subject id, and use mean as the function.
+To create the average of the averages, I first take out the activity description for ease of processing. I then use dplyr's group_by to group the dataset by activity ID and then subject ID (many subjects per activity). Using this grouped dataset (ms_as), I use summarize to find the mean for the rest of the variables using dplyr's summarize_all, which applies the functio mean to the non-grouped variables. I then join back the activity description to the tidy dataset and do some cleaning. 
+I export the tidy dataset as the data table tinydata.txt
