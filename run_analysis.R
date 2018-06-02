@@ -73,6 +73,18 @@ names(meanstd) <- vars
 str(meanstd)
 #5. Create a second, independent tidy data set with the average of 
 #each variable for each activity and each subject.
-subdf <- aggregate(meanstd[,4:82], by = list(meanstd$actid,meanstd$subjectid), FUN = mean)
-head(subdf)
-write.table(subdf, file = "tidydata.txt", row.names = FALSE)
+ms_as <- meanstd
+#take out activity desc temporarily
+ms_as$`type of activity` <- NULL
+ms_as <- group_by(ms_as, actid, subjectid)
+ms_tidy <- summarize_all(ms_as, funs(mean))
+#join act desc back in
+act <- ms_tidy["actid"]
+act <- left_join(act,actdesc, by=c("actid" = "V1"))
+#bind description back in
+ms_tidy <- cbind(act,ms_tidy)
+names(ms_tidy)[names(ms_tidy) == "V2"] <- "actdesc"
+ms_tidy["actid1"] <- NULL                                                          
+str(ms_tidy)
+#export tody data to data table
+write.table(ms_tidy,file="tinydata.txt",row.names = FALSE)
